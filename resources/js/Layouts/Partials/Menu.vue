@@ -38,20 +38,20 @@
                         <ul class="nav nav-treeview">
 
                            <li class="nav-item">
-                                <Link :href="route('niveauscolaire.index')" class="nav-link active">
+                                <Link :href="route('niveauscolaire.index')" class="nav-link" :class="{ 'active': $page.component.startsWith('NiveauScolaire/') }">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Niveau Scolaire</p>
                                 </Link>
                             </li>
 
                             <li class="nav-item">
-                                <Link :href="route('etudiant.index')" class="nav-link active">
+                                <Link :href="route('etudiant.index')" class="nav-link" :class="{ 'active': $page.component.startsWith('Etudiant/Index') }">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Tous les etudiants</p>
                                 </Link>
                             </li>
                             <li class="nav-item">
-                                <Link :href="route('etudiant.create')" class="nav-link">
+                                <Link :href="route('etudiant.create')" class="nav-link" :class="{ 'active': $page.component.startsWith('Etudiant/CreateEtu') }">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Nouveau etudiant</p>
                                 </Link>
