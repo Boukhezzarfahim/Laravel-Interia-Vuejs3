@@ -12,18 +12,24 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
               <h3 class="card-title"></h3>
               <div class="card-tools">
-                <ul class="pagination pagination-sm float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
+                <ul class="pagination pagination-sm float-right mb-0">
+                  <li
+                    class="page-item"
+                    v-for="(link, index) in props.niveauScolaires.links"
+                    :key="index"
+                    :class="{ 'disabled': !link.url, 'active': link.active }"
+                  >
+                    <Link
+                      class="page-link"
+                      :href="link.url ?? '#'"
+                      v-html="link.label"
+                    />
+                  </li>
                 </ul>
               </div>
             </div>
@@ -33,22 +39,26 @@
                 <thead>
                   <tr>
                     <th>Niveau scolaire</th>
-                    <th style="width: 100px"></th>
+                    <th style="width: 100px">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="niveauScolaire in props.niveauScolaires">
-                    <td>{{niveauScolaire.nom}}</td>
+                  <tr v-for="niveauScolaire in props.niveauScolaires.data" :key="niveauScolaire.id">
+                    <td>{{ niveauScolaire.nom }}</td>
                     <td>
-                          <div class="d-flex justify-items-center">
-                          <button class="btn btn-info mr-2"><i class="fas fa-pen"></i></button>
-                          <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                          </div>
+                      <div class="d-flex justify-content-start">
+                        <button class="btn btn-info btn-sm mr-2"><i class="fas fa-pen"></i></button>
+                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                      </div>
                     </td>
+                  </tr>
+                  <tr v-if="props.niveauScolaires.data.length === 0">
+                    <td colspan="2" class="text-center">Aucun niveau scolaire trouvé.</td>
                   </tr>
                 </tbody>
               </table>
             </div>
+
           </div>
         </div>
       </div>
@@ -57,7 +67,8 @@
 </template>
 
 <script setup>
-  const props = defineProps({
-    niveauScolaires: Array
-  })
+
+const props = defineProps({
+  niveauScolaires: Object
+})
 </script>
